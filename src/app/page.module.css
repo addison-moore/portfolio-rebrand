@@ -1,0 +1,50 @@
+.avatar {
+  margin: 50px 0 24px var(--label-column);
+  border-radius: 50%;
+  height: 96px;
+  width: 96px;
+}
+
+.project {
+  margin-bottom: 0.75em;
+}
+
+.project p {
+  max-width: 400px;
+  margin: 0 0 32px 0;
+}
+
+.project span:hover {
+  background-color: var(--color-accent-soft);
+}
+
+.projectName {
+  text-decoration: underline;
+  text-transform: uppercase;
+}
+
+.contact p {
+  margin-bottom: 0.75em;
+}
+
+.resume span {
+  text-decoration: underline;
+}
+
+.resume span:hover {
+  cursor: pointer;
+  background-color: var(--color-accent-soft);
+}
+
+.pdf {
+  vertical-align: -3px;
+  height: 20px;
+  width: auto;
+  margin-left: 2px;
+}
+
+@media only screen and (max-width: 750px) {
+  .avatar {
+    margin: 96px 0 24px var(--label-column);
+  }
+}

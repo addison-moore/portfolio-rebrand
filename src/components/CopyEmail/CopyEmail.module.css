@@ -1,0 +1,37 @@
+.button {
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.email {
+  text-decoration: underline;
+}
+
+/* Highlight follows the address itself, not the icon, as it did originally. */
+.email:hover {
+  background-color: var(--color-accent-soft);
+}
+
+.icon {
+  height: 16px;
+  width: 16px;
+  vertical-align: -2px;
+  margin-left: 2px;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}

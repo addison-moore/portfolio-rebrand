@@ -1,0 +1,14 @@
+.buttonLink {
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: solid var(--color-ink) 1px;
+}
+
+/*
+ * The transition is declared on :hover, matching the original — the fill
+ * eases in but snaps out.
+ */
+.buttonLink:hover {
+  background: var(--color-accent);
+  transition: 0.33s ease-in-out;
+}

@@ -1,0 +1,77 @@
+.singleImage {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.singleImage img {
+  width: 75%;
+  height: auto;
+}
+
+/*
+ * Centred rather than the original `width: 100%` plus `margin-left: 25%`,
+ * which pushed the document 25% wider than the viewport at every size.
+ */
+.videoFrame {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.video {
+  background: var(--color-ink);
+}
+
+.embed {
+  border: 0;
+  background: var(--color-ink);
+  max-width: 100%;
+}
+
+.grid {
+  margin: 36px auto;
+  width: 1212px;
+  column-gap: 4px;
+  column-count: 3;
+}
+
+.grid img {
+  width: 400px;
+  height: auto;
+}
+
+.repoLink {
+  text-decoration: underline;
+}
+
+.repoLink:hover {
+  background-color: var(--color-accent-soft);
+}
+
+.repoLink span:hover {
+  cursor: pointer;
+  background-color: var(--color-accent);
+}
+
+.repoIcon {
+  vertical-align: -3px;
+  height: 20px;
+  width: auto;
+  margin-left: 2px;
+}
+
+@media only screen and (max-width: 1212px) {
+  .grid {
+    width: 808px;
+    column-count: 2;
+  }
+}
+
+@media only screen and (max-width: 848px) {
+  .grid {
+    width: 400px;
+    column-gap: 0;
+    column-count: 1;
+  }
+}

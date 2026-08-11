@@ -1,3 +1,46 @@
+/*
+ * Breakpoints, for reference. They cannot be custom properties because media
+ * queries do not resolve var(). Carried over as-is from the original
+ * stylesheets; 1200/1212 and 750/848 are near-duplicates.
+ *
+ *   1296px  hero title steps down
+ *   1212px  gallery drops to two columns, video centres
+ *   1200px  section body stacks
+ *    848px  gallery drops to one column
+ *    750px  mobile type scale
+ */
+
+:root {
+  --color-ink: #000;
+  --color-ink-muted: #333;
+  --color-paper: #fff;
+  --color-accent: #ffd952;
+  --color-accent-soft: #ffe992;
+  --color-hero-title: whitesmoke;
+
+  --font-mono: "Courier New", Courier, monospace;
+  --font-condensed: "Avenir Next Condensed", Arial, Helvetica, sans-serif;
+  /* --font-display is supplied by next/font in the root layout. */
+
+  --text-body: 20px;
+  --leading-body: 1.5;
+
+  --label-column: 25%;
+  --content-column: 75%;
+  --content-inset: 12%;
+  --measure: 700px;
+  --hero-height: 350px;
+  --footer-height: 96px;
+}
+
+@media only screen and (max-width: 750px) {
+  :root {
+    --text-body: 14px;
+    --leading-body: 1.25;
+    --content-inset: 6%;
+  }
+}
+
 * {
   box-sizing: border-box;
 }
@@ -6,4 +49,44 @@ body {
   position: relative;
   margin: 0;
   min-height: 100vh;
+  font-family: var(--font-mono);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  color: var(--color-ink);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  /* Clears the absolutely positioned footer. */
+  padding-bottom: 148px;
+  min-width: 350px;
+}
+
+section {
+  display: flex;
+  margin-bottom: 32px;
+}
+
+p {
+  margin: 0 0 20px;
+  max-width: var(--measure);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 0;
+  margin-right: 24px;
+  min-width: 200px;
+}
+
+a {
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+a:hover {
+  cursor: pointer;
+  color: var(--color-ink-muted);
 }

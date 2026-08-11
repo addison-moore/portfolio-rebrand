@@ -1,0 +1,119 @@
+.carousel {
+  position: relative;
+  width: 100%;
+}
+
+.viewport {
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+}
+
+.slide {
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.single .slide {
+  flex: 0 0 100%;
+}
+
+/* Mirrors the original per-view breakpoints: 4 → 3 → 2 → 1. */
+.multi .slide {
+  flex: 0 0 25%;
+}
+
+@media only screen and (max-width: 1600px) {
+  .multi .slide {
+    flex-basis: 33.3333%;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .multi .slide {
+    flex-basis: 50%;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .multi .slide {
+    flex-basis: 100%;
+  }
+}
+
+.slideInner {
+  padding: 12px;
+}
+
+/*
+ * Height-capped only, as the original was. Adding a width cap would letterbox
+ * wide screenshots inside a slide sized by the tallest one.
+ */
+.slideInner img {
+  width: auto;
+  height: auto;
+  max-height: 700px;
+  border-radius: 5px;
+  box-shadow: 0 3px 12px rgb(0 0 0 / 24%);
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: block;
+  padding: 9px 12px;
+  font: inherit;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-ink-muted);
+  cursor: pointer;
+  background-color: rgb(255 255 255 / 50%);
+  border: 2px solid rgb(255 255 255 / 50%);
+  border-radius: 50%;
+  box-shadow: 0 0.25em 0.5em rgb(0 0 0 / 10%);
+  transition: border 0.3s ease-in-out;
+}
+
+.arrow:hover {
+  border-color: var(--color-paper);
+}
+
+.prev {
+  left: 1.5rem;
+}
+
+.next {
+  right: 1.5rem;
+}
+
+.bullets {
+  position: absolute;
+  left: 50%;
+  bottom: 2em;
+  transform: translate(-50%, 48px);
+  display: inline-flex;
+  z-index: 2;
+}
+
+.bullet {
+  width: 9px;
+  height: 9px;
+  margin: 0 0.25em;
+  padding: 0;
+  line-height: 0;
+  cursor: pointer;
+  background-color: rgb(200 200 200);
+  border: 2px solid transparent;
+  border-radius: 50%;
+  box-shadow: 0 0.25em 0.5em rgb(0 0 0 / 10%);
+  transition: all 0.3s ease-in-out;
+}
+
+.bulletActive {
+  background-color: rgb(100 100 100);
+}

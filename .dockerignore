@@ -1,8 +1,15 @@
 .git
+.github
 .gitignore
 node_modules
 .next
 npm-debug.log*
+
+# Tests never run inside the image
+tests
+playwright.config.ts
+test-results
+playwright-report
 
 # Local-only
 .baseline

@@ -12,8 +12,9 @@ export default defineConfig({
   use: { baseURL, trace: "on-first-retry" },
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
   webServer: {
-    // Tests run against a production build, which is what actually ships.
-    command: `npm run build && npx next start -p ${PORT}`,
+    // Tests run against a production build served the same way the container
+    // serves it — `next start` is not supported with output: "standalone".
+    command: `npm run build && PORT=${PORT} npm start`,
     url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 180_000,

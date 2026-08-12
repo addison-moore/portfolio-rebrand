@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import { Footer } from "@/components/Footer/Footer";
-import { montserrat } from "@/fonts";
 import "./normalize.css";
 import "./globals.css";
 
@@ -19,7 +18,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   const analyticsEnabled = process.env.NODE_ENV === "production";
 
   return (
-    <html lang="en" className={montserrat.variable}>
+    <html lang="en">
       {analyticsEnabled ? <GoogleTagManager gtmId={GTM_ID} /> : null}
       <body>
         {children}

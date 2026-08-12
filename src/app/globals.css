@@ -20,7 +20,7 @@
 
   --font-mono: "Courier New", Courier, monospace;
   --font-condensed: "Avenir Next Condensed", Arial, Helvetica, sans-serif;
-  /* --font-display is supplied by next/font in the root layout. */
+  /* --font-display is supplied by next/font on the project hero itself. */
 
   --text-body: 20px;
   --leading-body: 1.5;

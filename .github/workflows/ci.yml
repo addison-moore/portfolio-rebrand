@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run format:check
+      - run: npm run lint
+      - run: npm run typecheck
+
+      - run: npx playwright install --with-deps chromium
+
+      # Builds the site as part of starting its web server.
+      - run: npm test
+
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+  image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # The Dockerfile is the deploy artifact, so a break here would otherwise
+      # only surface at deploy time.
+      - run: docker build --build-arg SITE_URL=https://example.test -t portfolio:ci .
+
+      - name: Smoke test the image
+        run: |
+          docker run -d --name portfolio-ci -p 3000:3000 portfolio:ci
+          for i in $(seq 1 30); do
+            if curl -fsS -o /dev/null http://127.0.0.1:3000/; then break; fi
+            sleep 2
+          done
+          for route in / /plate-tracker /trading-platforms /freelance /multicam; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "http://127.0.0.1:3000$route")
+            echo "$route -> $code"
+            [ "$code" = "200" ] || exit 1
+          done
+          docker rm -f portfolio-ci

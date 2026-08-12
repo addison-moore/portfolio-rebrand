@@ -19,7 +19,9 @@ test("home renders and lists every project", async ({ page }) => {
   await page.goto("/");
 
   await expect(page).toHaveTitle("Addison Moore");
-  await expect(page.getByRole("heading", { name: "Addison Moore" })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Addison Moore" }),
+  ).toBeVisible();
 
   for (const project of PROJECTS) {
     await expect(page.locator(`a[href="/${project.slug}"]`)).toBeVisible();
@@ -81,7 +83,9 @@ test("email copies to the clipboard", async ({ page, context }) => {
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
   await page.goto("/");
 
-  await page.getByRole("button", { name: /addisondrewmoore@gmail\.com/ }).click();
+  await page
+    .getByRole("button", { name: /addisondrewmoore@gmail\.com/ })
+    .click();
 
   await expect(page.getByText("Copied to clipboard!")).toBeVisible();
   const clipboard = await page.evaluate(() => navigator.clipboard.readText());

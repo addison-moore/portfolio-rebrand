@@ -28,7 +28,10 @@ export function Section({
 
   return (
     <section className={className}>
-      <h3 className={styles.title}>{title}</h3>
+      {/* h2, not the original h3 — the page heading is an h1, and skipping a
+          level fails heading-order. The class sets size, weight and margin, so
+          the tag change is not visible. */}
+      <h2 className={styles.title}>{title}</h2>
       <div className={styles.body}>{children}</div>
     </section>
   );

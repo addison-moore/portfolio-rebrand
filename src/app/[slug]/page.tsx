@@ -7,9 +7,10 @@ import { ProjectHero } from "@/components/ProjectHero/ProjectHero";
 import { Section } from "@/components/Section/Section";
 import { getProject, projectSlugs } from "@/content/projects";
 
-// Project pages live at the site root, as they always have. Anything that is
-// not a known slug is a 404 rather than a dynamic render.
-export const dynamicParams = false;
+// Project pages live at the site root, as they always have. Unknown slugs fall
+// through to notFound() below. Leaving dynamicParams at its default keeps that
+// path quiet — setting it to false makes Next log an internal NoFallbackError
+// for every 404, which on a public site means one per bot probe.
 
 export function generateStaticParams() {
   return projectSlugs.map((slug) => ({ slug }));

@@ -47,7 +47,7 @@ jobs:
         run: |
           docker run -d --name portfolio-ci -p 3000:3000 portfolio:ci
           for i in $(seq 1 30); do
-            if curl -fsS -o /dev/null http://127.0.0.1:3000/; then break; fi
+            if curl -fsS -o /dev/null http://127.0.0.1:3000/ 2>/dev/null; then break; fi
             sleep 2
           done
           for route in / /plate-tracker /trading-platforms /freelance /multicam; do

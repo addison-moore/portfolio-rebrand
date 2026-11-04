@@ -48,3 +48,50 @@
     margin: 96px 0 24px var(--label-column);
   }
 }
+
+.role {
+  margin-bottom: 28px;
+  max-width: var(--measure);
+}
+
+.roleHead {
+  margin: 0 0 6px;
+  max-width: none;
+}
+
+.company {
+  text-decoration: underline;
+  text-transform: uppercase;
+}
+
+.duration::before {
+  content: " · ";
+  color: var(--color-ink-muted);
+}
+
+.duration {
+  color: var(--color-ink-muted);
+  white-space: nowrap;
+}
+
+/*
+ * The global `ul` rule is tuned for the side-by-side skills columns, so the
+ * experience bullets restate what they need.
+ */
+.roleBullets {
+  list-style: disc;
+  padding-left: 1.1em;
+  margin: 0;
+  margin-right: 0;
+  min-width: 0;
+}
+
+.roleBullets li {
+  margin-bottom: 6px;
+}
+
+@media only screen and (max-width: 750px) {
+  .role {
+    margin-bottom: 20px;
+  }
+}

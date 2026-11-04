@@ -41,7 +41,7 @@ jobs:
 
       # The Dockerfile is the deploy artifact, so a break here would otherwise
       # only surface at deploy time.
-      - run: docker build --build-arg SITE_URL=https://example.test -t portfolio:ci .
+      - run: docker build --build-arg SITE_DOMAIN=example.test -t portfolio:ci .
 
       - name: Smoke test the image
         run: |
@@ -50,7 +50,7 @@ jobs:
             if curl -fsS -o /dev/null http://127.0.0.1:3000/ 2>/dev/null; then break; fi
             sleep 2
           done
-          for route in / /plate-tracker /trading-platforms /freelance /multicam; do
+          for route in / /cronium /family-archive /trading-platforms /freelance /multicam; do
             code=$(curl -s -o /dev/null -w '%{http_code}' "http://127.0.0.1:3000$route")
             echo "$route -> $code"
             [ "$code" = "200" ] || exit 1

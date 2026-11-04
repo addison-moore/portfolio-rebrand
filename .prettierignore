@@ -4,3 +4,5 @@ public
 .baseline
 src/app/normalize.css
 package-lock.json
+
+resume/*.html

@@ -8,10 +8,10 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Baked into the sitemap and robots records, which are generated during the
-# build. Rebuild the image to change it.
-ARG SITE_URL
-ENV SITE_URL=$SITE_URL
+# Baked into canonical and OG URLs, and into the per-variant subdomains.
+# Rebuild the image to change it.
+ARG SITE_DOMAIN
+ENV SITE_DOMAIN=$SITE_DOMAIN
 ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN npm run build

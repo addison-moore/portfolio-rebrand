@@ -1,12 +1,22 @@
-import type { Project, ProjectSlug } from "./types";
+import type {
+  Project,
+  ProjectCard,
+  ProjectSlug,
+  Variant,
+  VariantId,
+} from "./types";
 
-import plateTrackerHero from "@/assets/projects/plate-tracker/plate-tracker-hero.png";
-import plateTracker1 from "@/assets/projects/plate-tracker/plate-tracker-1.jpg";
-import plateTracker2 from "@/assets/projects/plate-tracker/plate-tracker-2.jpg";
-import plateTracker3 from "@/assets/projects/plate-tracker/plate-tracker-3.jpg";
-import plateTracker4 from "@/assets/projects/plate-tracker/plate-tracker-4.jpg";
-import plateTracker5 from "@/assets/projects/plate-tracker/plate-tracker-5.jpg";
-import plateTracker6 from "@/assets/projects/plate-tracker/plate-tracker-6.jpg";
+import croniumHero from "@/assets/projects/cronium/cronium-hero.png";
+import cronium1 from "@/assets/projects/cronium/cronium-1.png";
+import cronium2 from "@/assets/projects/cronium/cronium-2.png";
+import cronium3 from "@/assets/projects/cronium/cronium-3.png";
+import cronium4 from "@/assets/projects/cronium/cronium-4.png";
+
+import familyArchiveHero from "@/assets/projects/family-archive/family-archive-hero.png";
+import familyArchive1 from "@/assets/projects/family-archive/family-archive-1.png";
+import familyArchive2 from "@/assets/projects/family-archive/family-archive-2.png";
+import familyArchive3 from "@/assets/projects/family-archive/family-archive-3.png";
+import familyArchive4 from "@/assets/projects/family-archive/family-archive-4.png";
 
 import tradingHero from "@/assets/projects/trading-platforms/trading-platforms_hero.png";
 import northLaptop from "@/assets/projects/trading-platforms/38North_laptop.png";
@@ -35,15 +45,6 @@ import multicam5 from "@/assets/projects/multicam/multicam5.gif";
 import multicamRig0 from "@/assets/projects/multicam/MultiCam_0.jpg";
 import multicamRig1 from "@/assets/projects/multicam/MultiCam_1.jpg";
 
-const PLATE_TRACKER_SHOTS = [
-  plateTracker1,
-  plateTracker2,
-  plateTracker3,
-  plateTracker4,
-  plateTracker5,
-  plateTracker6,
-];
-
 // Ordered as the original markup had them: aya_5 leads, then 1–4, then 6–12.
 const AYA_SHOTS = [
   aya5,
@@ -62,83 +63,149 @@ const AYA_SHOTS = [
 
 export const projects: Project[] = [
   {
-    slug: "plate-tracker",
-    title: "Plate Tracker",
+    slug: "cronium",
+    title: "Cronium",
     description:
-      "A React-Native app built around OpenALPR that scans license plates and checks them against a database of stolen vehicles.",
+      "A self-hosted automation platform that schedules scripts, chains them into workflows, and runs them on your own servers.",
     hero: {
-      image: plateTrackerHero,
-      alt: "Plate Tracker running on a phone",
+      image: croniumHero,
+      alt: "The Cronium website",
     },
-    titleOffset: { top: 585, left: -245 },
+    titleOffset: { top: 585, left: -146 },
     card: {
       before: "Built ",
-      highlight: "Plate Tracker",
-      after: ", a mobile app to help people find their stolen vehicles.",
+      highlight: "Cronium",
+      after:
+        ", a self-hosted automation platform for scheduling and monitoring scripts.",
+    },
+    framing: {
+      data: {
+        card: {
+          before: "Built ",
+          highlight: "Cronium",
+          after:
+            ", a self-hosted platform for scheduling and monitoring recurring data jobs.",
+        },
+      },
     },
     blocks: [
       {
         kind: "prose",
         title: "Summary",
         paragraphs: [
-          "Plate Tracker is a React-Native mobile application built around the OpenALPR library (Automatic License Plate Recognition). It allows users to scan vehicle license plates and automatically check them against a database of thousands of stolen vehicles. Users can register their stolen vehicles in the app and receive a notification if their license plate is scanned.",
+          "Cronium is a self-hosted automation platform. It schedules scripts written in Python, Node.js or Bash, chains them into workflows, and runs them inside isolated containers or on your own machines over SSH.",
+          "A visual workflow builder branches on success, failure or a condition the script sets, and runs independent branches in parallel. Logs stream in real time, every execution is kept, and failures notify Slack, Discord, Teams or email.",
         ],
+        cta: { label: "Visit the website →", href: "https://cronium.app" },
       },
       {
         kind: "stack",
         title: "Stack",
         columns: [
-          ["React-Native", "OpenALPR", "React-Native-Paper"],
-          ["MongoDB", "Express", "Node.js"],
-          ["JWT", "BCyrpt", "MLab"],
-        ],
-      },
-      {
-        kind: "gallery",
-        items: [
-          {
-            kind: "video",
-            src: "/video/plate-tracker.mp4",
-            width: 300,
-            height: 600,
-          },
-        ],
-      },
-      {
-        kind: "prose",
-        title: "Inspiration",
-        paragraphs: [
-          "I was inspired to build this app when my own motorcycle was stolen. I searched the internet for online communities that could support me in recovering my vehicle. I found local Facebook pages and bulletin boards fractured across the internet but no primary resource where data was aggregated. There are over 750,000 vehicles stolen in the US each year. Until now there has never been a centralized place for people to share information about stolen vehicles.",
+          ["TypeScript", "Next.js", "React"],
+          ["Go", "PostgreSQL", "Shell"],
+          ["Docker", "Docker Compose", "SSH"],
         ],
       },
       {
         kind: "carousel",
-        variant: "multi",
-        label: "Plate Tracker screenshots",
-        images: PLATE_TRACKER_SHOTS.map((image) => ({
+        variant: "single",
+        label: "Cronium screenshots",
+        images: [cronium1, cronium2, cronium3, cronium4].map((image) => ({
           image,
-          alt: "Plate Tracker Screenshot",
+          alt: "Cronium Screenshot",
         })),
       },
       {
         kind: "prose",
-        title: "Features",
+        title: "Security",
         paragraphs: [
-          "Users can add stolen vehicles to their profile and receive alerts when their vehicle is identified or their license plate is scanned by another user. They can choose whether they'd like to receive notifications about other stolen vehicles in their area. They can create public posts about their vehicle or other suspicious vehicles and view a feed of posts from other users in their area.",
+          "Credentials are encrypted at rest and execution payloads are signed, so a runner only accepts work from the orchestrator it trusts. Roles are enforced on the server rather than in the interface, and API tokens allow events, workflows, servers and variables to be managed programmatically.",
         ],
       },
       {
         kind: "repoLink",
         title: "Github",
-        label: "Plate Tracker",
-        href: "https://github.com/addison912/PlateTracker",
+        label: "Cronium",
+        href: "https://github.com/addison-moore/cronium",
       },
     ],
-    next: {
-      href: "/trading-platforms",
-      label: "Next Project →",
-      align: "left",
+    nextAlign: "centered",
+  },
+
+  {
+    slug: "family-archive",
+    title: "FamilyArchive",
+    description:
+      "A free, self-hosted home for a family's tree, photos, home movies and scanned letters — searchable and private by default.",
+    hero: {
+      image: familyArchiveHero,
+      alt: "The FamilyArchive website",
     },
+    titleOffset: { top: 585, left: -256 },
+    card: {
+      before: "Built ",
+      highlight: "FamilyArchive",
+      after: ", a private, self-hosted home for a family's photos and history.",
+    },
+    framing: {
+      data: {
+        card: {
+          before: "Built ",
+          highlight: "FamilyArchive",
+          after:
+            ", a self-hosted archive that imports, merges and searches structured family records.",
+        },
+      },
+    },
+    blocks: [
+      {
+        kind: "prose",
+        title: "Summary",
+        paragraphs: [
+          "FamilyArchive is a free, open-source, self-hosted home for a family's tree, photos, home movies and scanned letters — searchable, taggable and private by default. There is no company account, no cloud sync and no telemetry.",
+          "Families import an existing tree from Ancestry, FamilySearch or Gramps over GEDCOM, and overlapping imports can be merged person by person. Scanned letters and certificates run through on-device OCR so the names inside them become searchable.",
+        ],
+        cta: {
+          label: "Visit the website →",
+          href: "https://family-archive.net",
+        },
+      },
+      {
+        kind: "stack",
+        title: "Stack",
+        columns: [
+          ["TypeScript", "Next.js", "React"],
+          ["Drizzle ORM", "PostgreSQL", "React Flow"],
+          ["Docker", "Docker Compose", "S3-compatible storage"],
+        ],
+      },
+      {
+        kind: "carousel",
+        variant: "single",
+        label: "FamilyArchive screenshots",
+        images: [
+          familyArchive1,
+          familyArchive2,
+          familyArchive3,
+          familyArchive4,
+        ].map((image) => ({ image, alt: "FamilyArchive Screenshot" })),
+      },
+      {
+        kind: "prose",
+        title: "Collaboration",
+        paragraphs: [
+          "Admins and editors change things directly while contributors submit suggestions for an editor to review, and an audit log records what changed. Face detection runs locally, originals are never modified, and media lives on local disk or any S3-compatible storage.",
+        ],
+      },
+      {
+        kind: "repoLink",
+        title: "Github",
+        label: "FamilyArchive",
+        href: "https://github.com/addison-moore/FamilyArchive",
+      },
+    ],
+    nextAlign: "centered",
   },
 
   {
@@ -201,7 +268,7 @@ export const projects: Project[] = [
         ],
       },
     ],
-    next: { href: "/freelance", label: "Next Project →", align: "centered" },
+    nextAlign: "centered",
   },
 
   {
@@ -253,7 +320,7 @@ export const projects: Project[] = [
         ],
       },
     ],
-    next: { href: "/multicam", label: "Next Project →", align: "centered" },
+    nextAlign: "centered",
   },
 
   {
@@ -325,7 +392,7 @@ export const projects: Project[] = [
         ],
       },
     ],
-    next: { href: "/", label: "Back to Portfolio →", align: "left" },
+    nextAlign: "left",
   },
 ];
 
@@ -336,3 +403,34 @@ export function getProject(slug: string): Project | undefined {
 export const projectSlugs = projects.map(
   (project) => project.slug,
 ) as ProjectSlug[];
+
+/** The variant's projects, in its order. */
+export function getProjectsFor(variant: Variant): Project[] {
+  return variant.projects
+    .map((slug) => getProject(slug))
+    .filter((project): project is Project => project !== undefined);
+}
+
+export function cardFor(project: Project, id: VariantId): ProjectCard {
+  return project.framing?.[id]?.card ?? project.card;
+}
+
+export function descriptionFor(project: Project, id: VariantId): string {
+  return project.framing?.[id]?.description ?? project.description;
+}
+
+/**
+ * Where the trailing button goes. The last project in a variant returns to the
+ * home page, every other one advances — which reproduces the original chain
+ * for the full ordering, and stays correct for a narrowed one.
+ */
+export function projectNav(
+  variant: Variant,
+  slug: ProjectSlug,
+): { href: string; label: string } {
+  const index = variant.projects.indexOf(slug);
+  const next = index === -1 ? undefined : variant.projects[index + 1];
+  return next
+    ? { href: `/${next}`, label: "Next Project →" }
+    : { href: "/", label: "Back to Portfolio →" };
+}

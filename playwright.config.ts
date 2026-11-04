@@ -1,6 +1,8 @@
 import { defineConfig, devices } from "@playwright/test";
 
-const PORT = 3100;
+// Deliberately obscure: a common port risks adopting an unrelated local
+// service instead of this app.
+const PORT = 4311;
 const baseURL = `http://127.0.0.1:${PORT}`;
 
 export default defineConfig({
@@ -16,7 +18,9 @@ export default defineConfig({
     // serves it — `next start` is not supported with output: "standalone".
     command: `npm run build && PORT=${PORT} npm start`,
     url: baseURL,
-    reuseExistingServer: !process.env.CI,
+    // Never adopt a server this run did not start — doing so silently tests
+    // whatever happens to be listening.
+    reuseExistingServer: false,
     timeout: 180_000,
   },
 });

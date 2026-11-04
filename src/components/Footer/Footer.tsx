@@ -2,7 +2,7 @@ import { GithubIcon } from "@/components/icons/GithubIcon";
 import { LinkedInIcon } from "@/components/icons/LinkedInIcon";
 import styles from "./Footer.module.css";
 
-const GITHUB_URL = "https://github.com/addison912";
+const GITHUB_URL = "https://github.com/addison-moore";
 const LINKEDIN_URL = "https://www.linkedin.com/in/addison-moore/";
 
 export function Footer() {

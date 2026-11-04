@@ -178,7 +178,7 @@ export function getVariant(id: string): Variant | undefined {
  * both select "dev". Anything unrecognised, the apex and www included, is the
  * general variant.
  *
- * Kept free of any import that pulls in image assets, because middleware
+ * Kept free of any import that pulls in image assets, because the proxy
  * imports this.
  */
 export function variantIdForHost(host: string): VariantId {

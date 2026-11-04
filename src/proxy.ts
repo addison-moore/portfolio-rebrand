@@ -6,7 +6,7 @@ import { isVariantId, variantIdForHost } from "@/content/variants";
  * so dev.addisonmoore.me/cronium renders /dev/cronium while the
  * address bar keeps showing /cronium.
  */
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // The variant segment is an internal detail. Serving it directly would give

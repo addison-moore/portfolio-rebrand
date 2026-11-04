@@ -8,7 +8,7 @@ import { Section } from "@/components/Section/Section";
 import { descriptionFor, getProject, projectNav } from "@/content/projects";
 import { getVariant, variants } from "@/content/variants";
 
-// Projects live at the host root, as they always have — middleware supplies
+// Projects live at the host root, as they always have — the proxy supplies
 // the variant segment. Unknown slugs, and slugs a variant does not carry, fall
 // through to notFound(). Leaving dynamicParams at its default keeps that path
 // quiet: setting it to false makes Next log an internal NoFallbackError for

@@ -308,21 +308,17 @@ test("the freelance page leads with the look of its card", async ({ page }) => {
   await page.goto("/freelance");
 
   const hero = page.locator("header").first();
+  const title = hero.locator("h1");
   await expect(hero).toContainText("AyaBrackett.com");
+  await expect(hero).toHaveCSS("background-color", "rgb(255, 255, 255)");
+  await expect(title).not.toHaveCSS("-webkit-text-stroke-width", "0px");
 
-  // Hollow type on white. A missing CSS Modules class is silent otherwise.
-  const look = await hero.evaluate((el) => {
-    const title = el.querySelector("h1") as HTMLElement;
-    const { color, webkitTextStrokeWidth } = getComputedStyle(title);
-    return {
-      background: getComputedStyle(el).backgroundColor,
-      color,
-      stroke: webkitTextStrokeWidth,
-    };
-  });
-  expect(look.background).toBe("rgb(255, 255, 255)");
-  expect(look.color).toBe("rgba(0, 0, 0, 0)");
-  expect(look.stroke).not.toBe("0px");
+  // Hollow type that fills in on hover. The pointer is placed each way because
+  // where it starts isn't guaranteed: CI's browser can start it over the hero.
+  await hero.hover();
+  await expect(title).toHaveCSS("color", "rgb(50, 56, 68)");
+  await page.mouse.move(0, page.viewportSize()!.height - 1);
+  await expect(title).toHaveCSS("color", "rgba(0, 0, 0, 0)");
 
   const grid = hero.getByRole("img", { name: /photo grid/ });
   await expect(grid).toBeVisible();

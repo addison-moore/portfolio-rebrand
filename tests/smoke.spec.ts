@@ -304,6 +304,46 @@ test("the open-source projects lead with the real application", async ({
   }
 });
 
+test("the freelance page leads with the look of its card", async ({ page }) => {
+  await page.goto("/freelance");
+
+  const hero = page.locator("header").first();
+  await expect(hero).toContainText("AyaBrackett.com");
+
+  // Hollow type on white. A missing CSS Modules class is silent otherwise.
+  const look = await hero.evaluate((el) => {
+    const title = el.querySelector("h1") as HTMLElement;
+    const { color, webkitTextStrokeWidth } = getComputedStyle(title);
+    return {
+      background: getComputedStyle(el).backgroundColor,
+      color,
+      stroke: webkitTextStrokeWidth,
+    };
+  });
+  expect(look.background).toBe("rgb(255, 255, 255)");
+  expect(look.color).toBe("rgba(0, 0, 0, 0)");
+  expect(look.stroke).not.toBe("0px");
+
+  const grid = hero.getByRole("img", { name: /photo grid/ });
+  await expect(grid).toBeVisible();
+  await expect
+    .poll(() => grid.evaluate((el) => (el as HTMLImageElement).naturalWidth))
+    .toBeGreaterThan(0);
+});
+
+test("multicam shows the rig's clips and no longer embeds the video", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await expect(page.locator('a[href="/multicam"] picture')).toHaveCount(2);
+
+  await page.goto("/multicam");
+  await expect(page.locator("iframe")).toHaveCount(0);
+  await expect(
+    page.getByRole("img", { name: /captured with the Multicam/ }),
+  ).toHaveCount(4);
+});
+
 test("variants show different copy and different projects", async ({
   request,
   baseURL,

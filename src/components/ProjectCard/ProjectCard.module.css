@@ -637,9 +637,8 @@
 .multicamLoop {
   position: absolute;
   bottom: 18px;
-  left: 24px;
   width: 36cqw;
-  transform: rotate(-3deg);
+  transform: rotate(var(--tilt));
   transition: transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
@@ -651,7 +650,17 @@
 }
 
 .card:hover .multicamLoop {
-  transform: rotate(-1deg) scale(1.04);
+  transform: rotate(calc(var(--tilt) / 3)) scale(1.04);
+}
+
+.billieClip {
+  --tilt: -3deg;
+  left: 24px;
+}
+
+.maloneClip {
+  --tilt: 3deg;
+  right: 24px;
 }
 
 .multicam .art {
@@ -663,6 +672,11 @@
     min-height: 0;
   }
 
+  /* Clear of the top print, which starts right where the text column ends. */
+  .multicam .title {
+    font-size: clamp(38px, 7.6cqw, 56px);
+  }
+
   .multicamStudio {
     top: -1cqw;
     right: 2cqw;
@@ -670,9 +684,20 @@
   }
 
   .multicamLoop {
-    bottom: 26px;
-    left: 0;
     width: 19cqw;
+  }
+
+  /* A loose stack of prints, clear of the studio shot. */
+  .billieClip {
+    bottom: 3cqw;
+    left: 3cqw;
+  }
+
+  .maloneClip {
+    top: 3cqw;
+    right: auto;
+    bottom: auto;
+    left: 0;
   }
 }
 

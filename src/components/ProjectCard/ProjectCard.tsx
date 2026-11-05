@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 import {
@@ -14,8 +14,10 @@ import familyArchiveInvitation from "@/assets/projects/family-archive/family-arc
 import familyArchiveTelegram from "@/assets/projects/family-archive/family-archive-telegram.jpg";
 import familyArchiveTree from "@/assets/projects/family-archive/family-archive-tree.png";
 import ayaGrid from "@/assets/projects/freelance/aya-grid.jpg";
-import multicamLoop from "@/assets/projects/multicam/multicam-loop.webp";
-import multicamStill from "@/assets/projects/multicam/multicam-still.webp";
+import billieLoop from "@/assets/projects/multicam/multicam-billie-loop.webp";
+import billieStill from "@/assets/projects/multicam/multicam-billie-still.webp";
+import maloneLoop from "@/assets/projects/multicam/multicam-malone-loop.webp";
+import maloneStill from "@/assets/projects/multicam/multicam-malone-still.webp";
 import multicamStudio from "@/assets/projects/multicam/MultiCam_1.jpg";
 import northScreen from "@/assets/projects/trading-platforms/38north-screen.png";
 import oracleScreen from "@/assets/projects/trading-platforms/oracle-insights-screen.png";
@@ -197,22 +199,42 @@ function Art({
             alt=""
             sizes="(max-width: 900px) 90vw, 40vw"
           />
-          {/* Real output from the rig. A still for anyone who asks for less motion. */}
-          <picture className={styles.multicamLoop}>
-            <source
-              media="(prefers-reduced-motion: reduce)"
-              srcSet={multicamStill.src}
-            />
-            <img
-              src={multicamLoop.src}
-              width={multicamLoop.width}
-              height={multicamLoop.height}
-              alt=""
-              loading="lazy"
-              decoding="async"
-            />
-          </picture>
+          <RigClip
+            className={styles.maloneClip}
+            loop={maloneLoop}
+            still={maloneStill}
+          />
+          <RigClip
+            className={styles.billieClip}
+            loop={billieLoop}
+            still={billieStill}
+          />
         </>
       );
   }
+}
+
+/** Real output from the rig. A still for anyone who asks for less motion. */
+function RigClip({
+  className,
+  loop,
+  still,
+}: {
+  className: string;
+  loop: StaticImageData;
+  still: StaticImageData;
+}) {
+  return (
+    <picture className={`${styles.multicamLoop} ${className}`}>
+      <source media="(prefers-reduced-motion: reduce)" srcSet={still.src} />
+      <img
+        src={loop.src}
+        width={loop.width}
+        height={loop.height}
+        alt=""
+        loading="lazy"
+        decoding="async"
+      />
+    </picture>
+  );
 }

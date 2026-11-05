@@ -23,12 +23,6 @@ export type ExternalLink = {
   href: string;
 };
 
-/** Items that can sit together inside a single gallery section. */
-export type GalleryItem =
-  | { kind: "video"; src: string; width: number; height: number }
-  | { kind: "embed"; src: string; title: string; width: number; height: number }
-  | { kind: "grid"; images: GalleryImage[] };
-
 /**
  * Project pages are an ordered sequence of these. The order and mix genuinely
  * differ per project, so the page is driven by the list rather than a fixed
@@ -38,7 +32,7 @@ export type Block =
   /** An empty `title` renders the label column as a spacer, as the original did. */
   | { kind: "prose"; title?: string; paragraphs: string[]; cta?: ExternalLink }
   | { kind: "stack"; title: string; columns: string[][] }
-  | { kind: "gallery"; items: GalleryItem[] }
+  | { kind: "gallery"; images: GalleryImage[] }
   | {
       kind: "carousel";
       variant: "single" | "multi";
@@ -67,8 +61,15 @@ export type ProjectHeroContent =
       kind: "banner";
       image: StaticImageData;
       alt: string;
-      /** Large title laid over the hero. Only two projects use one. */
+      /** Large title laid over the hero. */
       overlayTitle?: string;
+    }
+  /** A client's site: its own type and photo grid rather than an app window. */
+  | {
+      kind: "site";
+      title: string;
+      kicker: string;
+      grid: GalleryImage;
     }
   /** Real windows from a product, staged on that product's own background. */
   | {

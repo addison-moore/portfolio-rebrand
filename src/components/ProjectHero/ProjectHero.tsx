@@ -62,6 +62,24 @@ export function ProjectHero({ slug, hero }: ProjectHeroProps) {
     );
   }
 
+  if (hero.kind === "site") {
+    return (
+      <header className={styles.site}>
+        <div className={styles.siteText}>
+          <p className={styles.siteKicker}>{hero.kicker}</p>
+          <h1 className={styles.siteTitle}>{hero.title}</h1>
+        </div>
+        <Image
+          className={styles.siteGrid}
+          src={hero.grid.image}
+          alt={hero.grid.alt}
+          preload
+          sizes="(max-width: 848px) 100vw, min(770px, 56vw)"
+        />
+      </header>
+    );
+  }
+
   return (
     <header className={styles.hero}>
       <Image

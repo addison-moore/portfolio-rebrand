@@ -9,28 +9,8 @@
   height: auto;
 }
 
-/*
- * Centred rather than the original `width: 100%` plus `margin-left: 25%`,
- * which pushed the document 25% wider than the viewport at every size.
- */
-.videoFrame {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.video {
-  background: var(--color-ink);
-}
-
-.embed {
-  border: 0;
-  background: var(--color-ink);
-  max-width: 100%;
-}
-
 .grid {
-  margin: 36px auto;
+  margin: 0 auto 36px;
   width: 1212px;
   column-gap: 4px;
   column-count: 3;

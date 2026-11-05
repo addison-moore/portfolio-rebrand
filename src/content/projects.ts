@@ -20,7 +20,7 @@ import tradingHero from "@/assets/projects/trading-platforms/trading-platforms_h
 import northLaptop from "@/assets/projects/trading-platforms/38North_laptop.png";
 import oracleLaptop from "@/assets/projects/trading-platforms/oracle-insights_laptop.png";
 
-import freelanceHero from "@/assets/projects/freelance/freelance.png";
+import ayaGrid from "@/assets/projects/freelance/aya-grid.jpg";
 import aya1 from "@/assets/projects/freelance/aya_1.png";
 import aya2 from "@/assets/projects/freelance/aya_2.png";
 import aya3 from "@/assets/projects/freelance/aya_3.png";
@@ -322,12 +322,15 @@ export const projects: Project[] = [
     description:
       "Freelance web development: bespoke sites with custom content management, including photographer Aya Brackett's portfolio.",
     hero: {
-      kind: "banner",
-      image: freelanceHero,
-      alt: "The Aya Brackett website",
-      overlayTitle: "Freelance",
+      kind: "site",
+      title: "Freelance",
+      kicker: "AyaBrackett.com",
+      grid: {
+        image: ayaGrid,
+        alt: "Portraits in the photo grid on Aya Brackett's website",
+      },
     },
-    titleOffset: { top: 580, left: -168 },
+    titleOffset: { top: 770, left: -168 },
     card: {
       kicker: "AyaBrackett.com",
       blurb:
@@ -394,46 +397,34 @@ export const projects: Project[] = [
       },
       {
         kind: "gallery",
-        items: [
+        images: [
           {
-            kind: "embed",
-            src: "https://player.vimeo.com/video/191719994?color=e7ab18&title=0&byline=0&portrait=0",
-            title: "Multicam",
-            width: 640,
-            height: 360,
+            image: multicam2,
+            alt: "Animation captured with the Multicam",
+            unoptimized: true,
           },
           {
-            kind: "grid",
-            images: [
-              {
-                image: multicam2,
-                alt: "Animation captured with the Multicam",
-                unoptimized: true,
-              },
-              {
-                image: multicam3,
-                alt: "Animation captured with the Multicam",
-                unoptimized: true,
-              },
-              {
-                image: multicamRig0,
-                alt: "The Multicam rig set up in a studio",
-              },
-              {
-                image: multicamRig1,
-                alt: "The Multicam rig capturing a jump",
-              },
-              {
-                image: multicam4,
-                alt: "Animation captured with the Multicam",
-                unoptimized: true,
-              },
-              {
-                image: multicam5,
-                alt: "Animation captured with the Multicam",
-                unoptimized: true,
-              },
-            ],
+            image: multicam3,
+            alt: "Animation captured with the Multicam",
+            unoptimized: true,
+          },
+          {
+            image: multicamRig0,
+            alt: "The Multicam rig set up in a studio",
+          },
+          {
+            image: multicamRig1,
+            alt: "The Multicam rig capturing a jump",
+          },
+          {
+            image: multicam4,
+            alt: "Animation captured with the Multicam",
+            unoptimized: true,
+          },
+          {
+            image: multicam5,
+            alt: "Animation captured with the Multicam",
+            unoptimized: true,
           },
         ],
       },

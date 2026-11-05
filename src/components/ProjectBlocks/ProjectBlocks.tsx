@@ -2,7 +2,7 @@ import Image from "next/image";
 import { ButtonLink } from "@/components/ButtonLink/ButtonLink";
 import { Carousel } from "@/components/Carousel/Carousel";
 import { Section } from "@/components/Section/Section";
-import type { Block, GalleryItem } from "@/content/types";
+import type { Block } from "@/content/types";
 import githubIcon from "@/assets/github.png";
 import styles from "./ProjectBlocks.module.css";
 
@@ -52,9 +52,16 @@ function ProjectBlock({ block, first }: { block: Block; first: boolean }) {
     case "gallery":
       return (
         <Section variant="gallery">
-          {block.items.map((item, index) => (
-            <GalleryItemView key={index} item={item} />
-          ))}
+          <div className={styles.grid}>
+            {block.images.map((entry, index) => (
+              <Image
+                key={index}
+                src={entry.image}
+                alt={entry.alt}
+                unoptimized={entry.unoptimized}
+              />
+            ))}
+          </div>
         </Section>
       );
 
@@ -99,56 +106,6 @@ function ProjectBlock({ block, first }: { block: Block; first: boolean }) {
             <Image className={styles.repoIcon} src={githubIcon} alt="" />
           </a>
         </Section>
-      );
-  }
-}
-
-function GalleryItemView({ item }: { item: GalleryItem }) {
-  switch (item.kind) {
-    case "video":
-      return (
-        <div className={styles.videoFrame}>
-          {/* muted + playsInline so autoplay is honoured on mobile Safari. */}
-          <video
-            className={styles.video}
-            width={item.width}
-            height={item.height}
-            autoPlay
-            loop
-            muted
-            playsInline
-          >
-            <source src={item.src} type="video/mp4" />
-          </video>
-        </div>
-      );
-
-    case "embed":
-      return (
-        <div className={styles.videoFrame}>
-          <iframe
-            className={styles.embed}
-            src={item.src}
-            title={item.title}
-            width={item.width}
-            height={item.height}
-            allowFullScreen
-          />
-        </div>
-      );
-
-    case "grid":
-      return (
-        <div className={styles.grid}>
-          {item.images.map((entry, index) => (
-            <Image
-              key={index}
-              src={entry.image}
-              alt={entry.alt}
-              unoptimized={entry.unoptimized}
-            />
-          ))}
-        </div>
       );
   }
 }

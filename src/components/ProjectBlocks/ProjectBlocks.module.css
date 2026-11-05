@@ -50,8 +50,12 @@
 
 @media only screen and (max-width: 848px) {
   .grid {
-    width: 400px;
+    width: min(400px, 100%);
     column-gap: 0;
     column-count: 1;
+  }
+
+  .grid img {
+    width: 100%;
   }
 }

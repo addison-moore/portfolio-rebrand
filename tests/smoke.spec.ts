@@ -273,14 +273,23 @@ test("the home page downloads no web fonts", async ({ page }) => {
   expect(fonts).toEqual([]);
 });
 
-test("home does not scroll sideways on a phone", async ({ page }) => {
+test("pages do not scroll sideways on a phone", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/");
 
-  const overflow = await page.evaluate(
-    () => document.documentElement.scrollWidth - window.innerWidth,
-  );
-  expect(overflow).toBeLessThanOrEqual(0);
+  // Not Trading Platforms yet: its hero title is too wide below about 440px.
+  for (const path of [
+    "/",
+    "/cronium",
+    "/family-archive",
+    "/freelance",
+    "/multicam",
+  ]) {
+    await page.goto(path);
+    const overflow = await page.evaluate(
+      () => document.documentElement.scrollWidth - window.innerWidth,
+    );
+    expect(overflow, path).toBeLessThanOrEqual(0);
+  }
 });
 
 test("the open-source projects lead with the real application", async ({

@@ -70,6 +70,8 @@ function ProjectBlock({ block, first }: { block: Block; first: boolean }) {
                 src={slide.image}
                 alt={slide.alt}
                 unoptimized={slide.unoptimized}
+                quality={slide.crisp ? 90 : undefined}
+                sizes="(max-width: 1120px) 100vw, 1120px"
               />
             ))}
           />

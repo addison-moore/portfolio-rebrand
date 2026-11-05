@@ -47,3 +47,33 @@
     text-align: justify;
   }
 }
+
+/* The cards want the width that prose gives up to keep its line length. */
+.cards .body {
+  padding-right: 48px;
+}
+
+@media only screen and (max-width: 1200px) {
+  .cards .body {
+    padding-right: 32px;
+  }
+}
+
+/* On a phone a label column would leave the cards too narrow to read. */
+@media only screen and (max-width: 750px) {
+  .cards {
+    flex-direction: column;
+  }
+
+  .cards .title {
+    width: 100%;
+    padding: 0 16px 12px;
+    text-align: left;
+  }
+
+  .cards .body {
+    width: 100%;
+    padding: 0 16px;
+    text-align: left;
+  }
+}

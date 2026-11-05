@@ -1,0 +1,688 @@
+/*
+ * Shared skeleton only: every colour, typeface and radius comes from the project
+ * blocks further down, which take their values from each project's own source.
+ *
+ * Layout answers to the card's width rather than the viewport's, because the same
+ * card is full width on one variant and half width on another.
+ */
+.card {
+  container: card / inline-size;
+  position: relative;
+  display: block;
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--card-ink);
+  background: var(--card-paper);
+  border-radius: var(--card-radius);
+  font-family: var(--card-type);
+  transition:
+    transform 260ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    box-shadow 260ms ease;
+}
+
+.card:hover {
+  color: var(--card-ink);
+  transform: translateY(-4px);
+  box-shadow: var(--card-lift);
+}
+
+/* Drawn on the page around the card, so it shows on light and dark cards alike. */
+.card:focus-visible {
+  outline: 3px solid var(--color-ink);
+  outline-offset: 3px;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.text {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 24px 24px 20px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  font: inherit;
+}
+
+.wordmark {
+  display: block;
+  height: 100%;
+}
+
+.kicker,
+.blurb {
+  margin: 0;
+  max-width: none;
+}
+
+.kicker {
+  font-size: 12px;
+  line-height: 1.3;
+}
+
+.blurb {
+  max-width: 36ch;
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.cta {
+  margin-top: 6px;
+  font-size: 14px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.cta span {
+  display: inline-block;
+  transition: transform 200ms ease;
+}
+
+.card:hover .cta span {
+  transform: translateX(3px);
+}
+
+.art {
+  position: relative;
+  flex: 1;
+  min-height: 56cqw;
+}
+
+.art img {
+  display: block;
+  max-width: none;
+}
+
+@container card (min-width: 640px) {
+  /* The art is sized in cqw, so the card's height has to grow with its width. */
+  .layout {
+    display: grid;
+    grid-template-columns: 38% minmax(0, 1fr);
+    min-height: max(340px, 43cqw);
+  }
+
+  .text {
+    justify-content: center;
+    gap: 14px;
+    padding: 36px 16px 36px 36px;
+  }
+
+  .blurb {
+    font-size: 17px;
+  }
+
+  .art {
+    min-height: 0;
+  }
+}
+
+/* ---- Cronium: the app's dark theme, its canvas dots, its violet and cyan ---- */
+
+.cronium {
+  --card-ink: #eceff3;
+  --card-paper: #0e1116;
+  --card-radius: 12px;
+  --card-type:
+    Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    sans-serif;
+  --card-lift: 0 22px 44px -18px rgb(124 58 237 / 0.55);
+  background:
+    radial-gradient(
+      70% 100% at 88% 0%,
+      rgb(139 92 246 / 0.38),
+      transparent 70%
+    ),
+    radial-gradient(50% 70% at 0% 100%, rgb(6 182 212 / 0.2), transparent 70%),
+    radial-gradient(rgb(255 255 255 / 0.07) 1px, transparent 1px) 0 0 / 22px
+      22px,
+    var(--card-paper);
+}
+
+.cronium .title {
+  height: 44px;
+  color: #06b6d4;
+}
+
+.cronium .logo {
+  width: 40px;
+  height: 40px;
+}
+
+.cronium .wordmark {
+  height: 27px;
+  width: auto;
+}
+
+.cronium .kicker {
+  color: #9aa4b2;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.cronium .cta {
+  padding: 11px 16px;
+  color: #fff;
+  font-weight: 600;
+  /* The app's light-theme violet: white on its dark-theme one misses AA. */
+  background: #7c3aed;
+  border-radius: 6px;
+}
+
+.croniumGraph,
+.croniumCode {
+  position: absolute;
+  height: auto;
+  border-radius: 10px;
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 0.1),
+    0 24px 50px -16px rgb(0 0 0 / 0.75);
+  transition: transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.croniumGraph {
+  top: 0;
+  left: 24px;
+  width: 150cqw;
+}
+
+/* No room for a second window until the card is wide. */
+.croniumCode {
+  display: none;
+  bottom: -5cqw;
+  left: 16px;
+  width: 29cqw;
+}
+
+.card:hover .croniumGraph {
+  transform: translateY(-6px);
+}
+
+.card:hover .croniumCode {
+  transform: translateY(-14px);
+}
+
+@container card (min-width: 640px) {
+  .croniumGraph {
+    top: 48px;
+    left: 0;
+    width: 96cqw;
+  }
+
+  .croniumCode {
+    display: block;
+  }
+}
+
+/* ---- FamilyArchive: warm paper, brick, Fraunces, a table of old documents ---- */
+
+.family-archive {
+  --card-ink: #3d3427;
+  --card-paper: #faf7f2;
+  --card-radius: 16px;
+  --card-type:
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --card-lift: 0 22px 44px -20px rgb(61 52 39 / 0.5);
+  box-shadow: inset 0 0 0 1px #f3ede2;
+}
+
+.family-archive .title {
+  height: 34px;
+}
+
+.family-archive .wordmark {
+  height: 30px;
+  width: auto;
+}
+
+.family-archive .kicker {
+  color: #6b5d4a;
+}
+
+.family-archive .cta {
+  padding: 11px 16px;
+  color: #fff;
+  font-weight: 500;
+  background: #8a4c32;
+  border-radius: 8px;
+}
+
+.archiveTree,
+.archiveInvitation,
+.archiveTelegram {
+  position: absolute;
+  height: auto;
+  transition: transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.archiveTree {
+  top: 0;
+  left: 24px;
+  width: 128cqw;
+  border-radius: 12px;
+  box-shadow:
+    0 0 0 1px #e4dccd,
+    0 18px 40px -18px rgb(61 52 39 / 0.45);
+}
+
+.archiveInvitation,
+.archiveTelegram {
+  border-radius: 2px;
+  box-shadow:
+    0 1px 2px rgb(61 52 39 / 0.3),
+    0 14px 28px -8px rgb(61 52 39 / 0.5);
+}
+
+.archiveInvitation {
+  right: 25cqw;
+  bottom: -16cqw;
+  width: 30cqw;
+  transform: rotate(-7deg);
+}
+
+.archiveTelegram {
+  right: 12px;
+  bottom: -5cqw;
+  width: 34cqw;
+  transform: rotate(5deg);
+}
+
+.card:hover .archiveTree {
+  transform: translateY(-5px);
+}
+
+.card:hover .archiveInvitation {
+  transform: rotate(-10deg) translate(-4px, -10px);
+}
+
+.card:hover .archiveTelegram {
+  transform: rotate(8deg) translate(4px, -8px);
+}
+
+@container card (min-width: 640px) {
+  .family-archive .layout {
+    grid-template-columns: minmax(0, 1fr) 38%;
+  }
+
+  .family-archive .art {
+    order: -1;
+  }
+
+  .family-archive .text {
+    padding: 36px 28px;
+  }
+
+  .family-archive .title {
+    width: 100%;
+    height: auto;
+  }
+
+  .family-archive .wordmark {
+    width: min(100%, 252px);
+    height: auto;
+  }
+
+  .archiveTree {
+    top: 42px;
+    right: 0;
+    left: auto;
+    width: 92cqw;
+  }
+
+  .archiveInvitation {
+    right: auto;
+    bottom: -9cqw;
+    left: 24px;
+    width: 15cqw;
+  }
+
+  .archiveTelegram {
+    right: auto;
+    bottom: -3cqw;
+    left: 15cqw;
+    width: 19cqw;
+  }
+}
+
+/* ---- Trading: the project hero's black and candles, 38North's gold outlines ---- */
+
+.trading-platforms {
+  --card-ink: whitesmoke;
+  --card-paper: #000;
+  --card-radius: 4px;
+  /*
+   * Not Montserrat, even as a preference: next/font's @font-face for it sits in the
+   * shared stylesheet under that same name, so naming it here downloads the font
+   * on the home page. The wordmark is outlined for exactly that reason.
+   */
+  --card-type:
+    "Helvetica Neue", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, sans-serif;
+  --card-lift: 0 22px 44px -20px rgb(242 191 39 / 0.45);
+}
+
+.trading-platforms .title {
+  width: 100%;
+  max-width: 460px;
+}
+
+.trading-platforms .wordmark {
+  width: 100%;
+  height: auto;
+}
+
+.trading-platforms .kicker {
+  color: #f2bf27;
+  letter-spacing: 0.04em;
+}
+
+.trading-platforms .blurb {
+  color: #d5d5d5;
+  font-weight: 300;
+}
+
+.trading-platforms .cta {
+  padding: 10px 16px;
+  color: #f2bf27;
+  border: 1px solid #f2bf27;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+.card.trading-platforms:hover .cta {
+  color: #181304;
+  background: #f2bf27;
+}
+
+/* The candles fill the whole card, so they ignore the art box's own position. */
+.trading-platforms .art {
+  position: static;
+  min-height: 62cqw;
+}
+
+.candles {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right bottom;
+  filter: brightness(2.1) saturate(1.3);
+  opacity: 0.85;
+  transition:
+    filter 320ms ease,
+    opacity 320ms ease;
+}
+
+.card:hover .candles {
+  filter: brightness(2.8) saturate(1.4);
+  opacity: 1;
+}
+
+.northScreen,
+.oracleScreen {
+  position: absolute;
+  height: auto;
+  border-radius: 3px;
+  transition: transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.northScreen {
+  bottom: -18cqw;
+  left: 24px;
+  width: 92cqw;
+  box-shadow:
+    0 0 0 1px rgb(242 191 39 / 0.75),
+    0 20px 40px -10px #000;
+}
+
+.oracleScreen {
+  right: -16cqw;
+  bottom: 24cqw;
+  width: 56cqw;
+  opacity: 0.92;
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 0.22),
+    0 12px 28px -8px #000;
+}
+
+.card:hover .northScreen {
+  transform: translateY(-8px);
+}
+
+.card:hover .oracleScreen {
+  transform: translateX(-10px);
+}
+
+@container card (min-width: 640px) {
+  .trading-platforms .art {
+    min-height: 0;
+  }
+
+  .northScreen {
+    top: 122px;
+    bottom: auto;
+    left: 38cqw;
+    width: 54cqw;
+  }
+
+  .oracleScreen {
+    top: 30px;
+    right: -6cqw;
+    bottom: auto;
+    width: 34cqw;
+  }
+}
+
+/* ---- Freelance: Aya's site. White, hollow type that fills in, the site's own grid ---- */
+
+.freelance {
+  --card-ink: #323844;
+  --card-paper: #fff;
+  --card-radius: 6px;
+  --card-type: "Courier New", Courier, monospace;
+  --card-lift:
+    0 2px 2px rgb(0 0 0 / 0.02), 0 6px 5px rgb(0 0 0 / 0.03),
+    0 12px 10px rgb(0 0 0 / 0.03), 0 22px 18px rgb(0 0 0 / 0.04),
+    0 40px 33px rgb(0 0 0 / 0.05), 0 80px 60px rgb(0 0 0 / 0.06);
+  box-shadow: inset 0 0 0 1px #eee;
+}
+
+.freelance .title {
+  order: -1;
+  color: transparent;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: clamp(44px, 14.5cqw, 76px);
+  font-weight: 700;
+  line-height: 1.05;
+  -webkit-text-stroke: 1.2px var(--card-ink);
+  transition: color 250ms ease-in-out;
+}
+
+.card.freelance:hover .title {
+  color: var(--card-ink);
+}
+
+.freelance .kicker {
+  order: -2;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.freelance .blurb {
+  font-size: 15px;
+}
+
+.freelance .cta {
+  letter-spacing: 0.12em;
+  text-decoration: underline;
+  text-transform: uppercase;
+  text-underline-offset: 4px;
+}
+
+.freelance .art {
+  overflow: hidden;
+  min-height: 62cqw;
+}
+
+/* Runs off the bottom of the card, the way the site's grid runs off the page. */
+.ayaGrid {
+  position: absolute;
+  top: 0;
+  left: 24px;
+  width: calc(100% - 48px);
+  height: auto;
+  transition: transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.card:hover .ayaGrid {
+  transform: scale(1.015);
+}
+
+/* ---- Multicam: the white studio, eight lenses, and what the rig actually shot ---- */
+
+.multicam {
+  --card-ink: #111;
+  --card-paper: #ebe9ea;
+  --card-radius: 2px;
+  --card-type:
+    "Avenir Next", "Helvetica Neue", Helvetica, Arial, ui-sans-serif, sans-serif;
+  --card-lift: 0 22px 44px -22px rgb(0 0 0 / 0.5);
+}
+
+.multicam .title {
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: clamp(38px, 10cqw, 56px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.multicam .kicker {
+  order: -1;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.multicam .cta {
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.lenses {
+  display: flex;
+  gap: 9px;
+}
+
+.lenses i {
+  display: block;
+  width: 13px;
+  height: 13px;
+  background: #111;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 3px #2c2c2c;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .card:hover .lenses i {
+    animation: fire 520ms ease-out calc(var(--lens) * 60ms) both;
+  }
+}
+
+@keyframes fire {
+  35% {
+    background: #fff;
+    box-shadow:
+      inset 0 0 0 3px #ffd952,
+      0 0 14px 5px rgb(255 217 82 / 0.85);
+    transform: scale(1.2);
+  }
+}
+
+.multicamStudio {
+  position: absolute;
+  top: 2cqw;
+  right: -1cqw;
+  width: 80cqw;
+  height: auto;
+  /* Its off-white sweep melts into the card rather than ending at a hard edge. */
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+}
+
+.multicamLoop {
+  position: absolute;
+  bottom: 18px;
+  left: 24px;
+  width: 36cqw;
+  transform: rotate(-3deg);
+  transition: transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.multicamLoop img {
+  width: 100%;
+  height: auto;
+  border: 5px solid #fff;
+  box-shadow: 0 16px 30px -10px rgb(0 0 0 / 0.5);
+}
+
+.card:hover .multicamLoop {
+  transform: rotate(-1deg) scale(1.04);
+}
+
+.multicam .art {
+  min-height: 86cqw;
+}
+
+@container card (min-width: 640px) {
+  .multicam .art {
+    min-height: 0;
+  }
+
+  .multicamStudio {
+    top: -1cqw;
+    right: 2cqw;
+    width: 47cqw;
+  }
+
+  .multicamLoop {
+    bottom: 26px;
+    left: 0;
+    width: 19cqw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card * {
+    transition: none !important;
+  }
+
+  .card:hover {
+    transform: none;
+  }
+}

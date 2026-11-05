@@ -5,22 +5,28 @@
   width: 96px;
 }
 
-.project {
-  margin-bottom: 0.75em;
+/*
+ * The two current projects get full-width cards, the rest pair up, and an odd one
+ * out takes the whole row rather than leaving a hole beside it.
+ */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  width: 100%;
+  max-width: 1240px;
 }
 
-.project p {
-  max-width: 400px;
-  margin: 0 0 32px 0;
+.cards > :nth-child(-n + 2),
+.cards > :last-child:nth-child(odd) {
+  grid-column: 1 / -1;
 }
 
-.project span:hover {
-  background-color: var(--color-accent-soft);
-}
-
-.projectName {
-  text-decoration: underline;
-  text-transform: uppercase;
+@media only screen and (max-width: 900px) {
+  .cards {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
 }
 
 .contact p {

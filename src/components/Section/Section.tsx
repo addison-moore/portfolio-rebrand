@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 import styles from "./Section.module.css";
 
-type SectionVariant = "default" | "main" | "gallery" | "left" | "centered";
+type SectionVariant =
+  "default" | "main" | "gallery" | "left" | "centered" | "cards";
 
 type SectionProps = {
   /**

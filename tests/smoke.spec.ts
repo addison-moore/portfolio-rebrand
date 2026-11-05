@@ -184,31 +184,123 @@ test("each variant links and serves its own resume", async ({
   }
 });
 
-test("every variant shows work history with durations, not dates", async ({
+test("the data variant shows work history with durations, not dates", async ({
   request,
   baseURL,
 }) => {
-  for (const label of ["", "dev", "data"]) {
+  const html = await (
+    await request.get("/", { headers: withHost(baseURL, "data") })
+  ).text();
+
+  expect(html).toContain(">Experience<");
+  expect(html).toContain(">Skills<");
+  for (const company of [
+    "Self-employed",
+    "Stratus Data",
+    "Quantum Metric",
+    "The Bosco",
+  ]) {
+    expect(html).toContain(company);
+  }
+  expect(html).toContain("3 yrs 4 mos");
+
+  // Month names would mean a date range slipped back in.
+  expect(html).not.toMatch(
+    /\b(January|February|March|April|June|July|August|September|October|November|December)\b/,
+  );
+});
+
+test("general and dev lead with projects rather than a work history", async ({
+  request,
+  baseURL,
+}) => {
+  for (const label of ["", "dev"]) {
     const headers = label ? withHost(baseURL, label) : undefined;
     const html = await (
       await request.get("/", headers ? { headers } : {})
     ).text();
 
-    expect(html).toContain("Experience");
-    for (const company of [
-      "Self-employed",
-      "Stratus Data",
-      "Quantum Metric",
-      "The Bosco",
-    ]) {
-      expect(html).toContain(company);
+    expect(html).toContain(">Projects<");
+    expect(html).not.toContain(">Experience<");
+    expect(html).not.toContain(">Skills<");
+    for (const history of ["Self-employed", "Quantum Metric", "3 yrs 4 mos"]) {
+      expect(html).not.toContain(history);
     }
-    expect(html).toContain("3 yrs 4 mos");
+  }
+});
 
-    // Month names would mean a date range slipped back in.
-    expect(html).not.toMatch(
-      /\b(January|February|March|April|June|July|August|September|October|November|December)\b/,
+test("each project card wears its own project's look", async ({ page }) => {
+  await page.goto("/");
+
+  // A background and typeface per project. Anything less means a card lost its
+  // theme, which is silent otherwise because a missing CSS Modules class is
+  // just undefined.
+  const looks = new Set<string>();
+  for (const project of PROJECTS) {
+    const card = page.locator(`a[href="/${project.slug}"]`);
+    looks.add(
+      await card.evaluate((el) => {
+        const { backgroundColor, fontFamily } = getComputedStyle(el);
+        return `${backgroundColor} ${fontFamily}`;
+      }),
     );
+
+    const images = card.locator("img");
+    expect(await images.count()).toBeGreaterThan(0);
+    for (const image of await images.all()) {
+      await image.scrollIntoViewIfNeeded();
+      await expect
+        .poll(() =>
+          image.evaluate((el) => (el as HTMLImageElement).naturalWidth),
+        )
+        .toBeGreaterThan(0);
+    }
+  }
+  expect(looks.size).toBe(PROJECTS.length);
+});
+
+test("the home page downloads no web fonts", async ({ page }) => {
+  // Easy to regress: the shared stylesheet declares the project hero's font, so
+  // merely naming it in a font stack is enough to fetch it here.
+  const fonts: string[] = [];
+  page.on("request", (request) => {
+    if (request.resourceType() === "font") fonts.push(request.url());
+  });
+
+  await page.goto("/");
+  await page.evaluate(() => document.fonts.ready);
+
+  expect(fonts).toEqual([]);
+});
+
+test("home does not scroll sideways on a phone", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+
+  const overflow = await page.evaluate(
+    () => document.documentElement.scrollWidth - window.innerWidth,
+  );
+  expect(overflow).toBeLessThanOrEqual(0);
+});
+
+test("the open-source projects lead with the real application", async ({
+  page,
+}) => {
+  const heroes = [
+    { slug: "cronium", main: /workflow on the canvas/ },
+    { slug: "family-archive", main: /family tree/ },
+  ];
+
+  for (const { slug, main } of heroes) {
+    await page.goto(`/${slug}`);
+    const hero = page
+      .locator("header")
+      .first()
+      .getByRole("img", { name: main });
+    await expect(hero).toBeVisible();
+    await expect
+      .poll(() => hero.evaluate((el) => (el as HTMLImageElement).naturalWidth))
+      .toBeGreaterThan(0);
   }
 });
 
@@ -232,9 +324,10 @@ test("variants show different copy and different projects", async ({
   expect(data).toContain("customer success engineer");
   expect(general).not.toContain("product-minded builder");
 
-  // data carries a narrowed project list; general carries all five.
+  // Each variant carries its own list; general carries all five.
   const links = (html: string) => [...html.matchAll(PROJECT_LINK)].length;
   expect(links(general)).toBe(5);
+  expect(links(dev)).toBe(4);
   expect(links(data)).toBe(3);
 
   // data carries both open-source projects but none of the older pieces.

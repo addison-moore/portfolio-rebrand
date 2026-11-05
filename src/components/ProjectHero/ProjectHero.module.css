@@ -27,3 +27,150 @@
     font-size: 64px;
   }
 }
+
+/*
+ * Real windows from the product on the product's own background. The height is
+ * taller than the banner hero's, so these projects' title offsets in projects.ts
+ * allow for it. Images are served near 3x, which is what keeps UI text sharp.
+ */
+.product {
+  position: relative;
+  height: 640px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.brand {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 48px;
+  transform: translateX(-50%);
+}
+
+.logo {
+  width: 46px;
+  height: 46px;
+}
+
+.wordmark {
+  display: block;
+  width: auto;
+  height: 32px;
+}
+
+.window {
+  position: absolute;
+  height: auto;
+}
+
+.main {
+  z-index: 2;
+  top: 88px;
+  left: 50%;
+  width: min(1060px, 74vw);
+  transform: translateX(-50%);
+}
+
+.left,
+.right {
+  z-index: 1;
+  top: 168px;
+  width: min(640px, 44vw);
+}
+
+.left {
+  right: calc(50% + min(320px, 22vw));
+  transform: perspective(1800px) rotateY(16deg);
+  transform-origin: right center;
+}
+
+.right {
+  left: calc(50% + min(320px, 22vw));
+  transform: perspective(1800px) rotateY(-16deg);
+  transform-origin: left center;
+}
+
+.cronium {
+  color: #06b6d4;
+  background:
+    radial-gradient(55% 90% at 50% 0%, rgb(139 92 246 / 0.42), transparent 72%),
+    radial-gradient(40% 70% at 0% 100%, rgb(6 182 212 / 0.2), transparent 70%),
+    radial-gradient(
+      40% 70% at 100% 100%,
+      rgb(139 92 246 / 0.22),
+      transparent 70%
+    ),
+    radial-gradient(rgb(255 255 255 / 0.07) 1px, transparent 1px) 0 0 / 22px
+      22px,
+    #0e1116;
+}
+
+.cronium .window {
+  border-radius: 12px;
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 0.1),
+    0 30px 70px -20px rgb(0 0 0 / 0.85);
+}
+
+.family-archive {
+  color: #3d3427;
+  background: #faf7f2;
+  box-shadow: inset 0 -1px 0 #f3ede2;
+}
+
+.family-archive .window {
+  border-radius: 14px;
+  box-shadow:
+    0 0 0 1px #e4dccd,
+    0 26px 60px -24px rgb(61 52 39 / 0.5);
+}
+
+.family-archive .wordmark {
+  height: 38px;
+}
+
+/* No room for the side windows: one window, clear of the mobile title bar. */
+@media only screen and (max-width: 1100px) {
+  .left,
+  .right {
+    display: none;
+  }
+
+  .main {
+    width: 92vw;
+  }
+
+  .product {
+    height: calc(92vw * 0.52 + 88px);
+    max-height: 640px;
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  .brand {
+    top: 22px;
+    height: 36px;
+  }
+
+  .logo {
+    width: 34px;
+    height: 34px;
+  }
+
+  .wordmark,
+  .family-archive .wordmark {
+    height: 24px;
+  }
+
+  .main {
+    top: 76px;
+  }
+
+  .product {
+    height: calc(92vw * 0.52 + 76px);
+  }
+}

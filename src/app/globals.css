@@ -53,6 +53,8 @@ body {
   font-size: var(--text-body);
   line-height: var(--leading-body);
   color: var(--color-ink);
+  /* Not left to the browser: some in-app webviews default to a dark canvas. */
+  background: var(--color-paper);
 }
 
 main {

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CopyEmail } from "@/components/CopyEmail/CopyEmail";
 import { PageTitle } from "@/components/PageTitle/PageTitle";
+import { ProjectCard } from "@/components/ProjectCard/ProjectCard";
 import { Section } from "@/components/Section/Section";
 import { profile } from "@/content/profile";
 import { getRole } from "@/content/experience";
@@ -51,62 +51,57 @@ export default async function Home({ params }: PageProps<"/[variant]">) {
           </div>
         </Section>
 
-        <Section title="Experience">
-          <div>
-            {variant.roles.map(({ id, bullets }) => {
-              const role = getRole(id);
-              if (!role) return null;
+        {variant.history ? (
+          <>
+            <Section title="Experience">
+              <div>
+                {variant.history.roles.map(({ id, bullets }) => {
+                  const role = getRole(id);
+                  if (!role) return null;
 
-              return (
-                <div className={styles.role} key={id}>
-                  <p className={styles.roleHead}>
-                    <span className={styles.company}>{role.company}</span>
-                    {" — "}
-                    {role.title}
-                    <span className={styles.duration}>{role.duration}</span>
-                  </p>
-                  <ul className={styles.roleBullets}>
-                    {bullets.map((key) => {
-                      const text = role.bullets[key];
-                      return text ? <li key={key}>{text}</li> : null;
-                    })}
-                  </ul>
-                </div>
-              );
-            })}
-          </div>
-        </Section>
+                  return (
+                    <div className={styles.role} key={id}>
+                      <p className={styles.roleHead}>
+                        <span className={styles.company}>{role.company}</span>
+                        {" — "}
+                        {role.title}
+                        <span className={styles.duration}>{role.duration}</span>
+                      </p>
+                      <ul className={styles.roleBullets}>
+                        {bullets.map((key) => {
+                          const text = role.bullets[key];
+                          return text ? <li key={key}>{text}</li> : null;
+                        })}
+                      </ul>
+                    </div>
+                  );
+                })}
+              </div>
+            </Section>
 
-        <Section title="Skills">
-          {variant.skills.map((column, index) => (
-            <ul key={index}>
-              {column.map((skill) => (
-                <li key={skill}>{skill}</li>
+            <Section title="Skills">
+              {variant.history.skills.map((column, index) => (
+                <ul key={index}>
+                  {column.map((skill) => (
+                    <li key={skill}>{skill}</li>
+                  ))}
+                </ul>
               ))}
-            </ul>
-          ))}
-        </Section>
+            </Section>
+          </>
+        ) : null}
 
-        <Section title="Past Projects">
-          <div>
-            {getProjectsFor(variant).map((project) => {
-              const card = cardFor(project, variant.id);
-              return (
-                <div className={styles.project} key={project.slug}>
-                  <Link href={`/${project.slug}`}>
-                    <p>
-                      <span>
-                        {card.before}
-                        <span className={styles.projectName}>
-                          {card.highlight}
-                        </span>
-                        {card.after}
-                      </span>
-                    </p>
-                  </Link>
-                </div>
-              );
-            })}
+        <Section title="Projects" variant="cards">
+          <div className={styles.cards}>
+            {getProjectsFor(variant).map((project, index) => (
+              <ProjectCard
+                key={project.slug}
+                slug={project.slug}
+                title={project.title}
+                copy={cardFor(project, variant.id)}
+                preload={index === 0 && !variant.history}
+              />
+            ))}
           </div>
         </Section>
 

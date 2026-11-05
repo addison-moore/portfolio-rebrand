@@ -6,6 +6,11 @@ const nextConfig: NextConfig = {
   // output pipeline and does not use server.js, so leave it unset there
   // rather than producing a bundle nothing reads.
   output: process.env.VERCEL ? undefined : "standalone",
+  images: {
+    // Product screenshots are mostly thin text on flat colour, which the default
+    // quality smears. Photographs stay at the default.
+    qualities: [75, 90],
+  },
 };
 
 export default nextConfig;

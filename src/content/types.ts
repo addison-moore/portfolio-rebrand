@@ -14,6 +14,8 @@ export type GalleryImage = {
   alt: string;
   /** Set for animated GIFs, which gain nothing from the image optimizer. */
   unoptimized?: boolean;
+  /** Set for product screenshots, whose thin text suffers at the default. */
+  crisp?: boolean;
 };
 
 export type ExternalLink = {
@@ -46,11 +48,11 @@ export type Block =
   | { kind: "image"; image: GalleryImage }
   | { kind: "repoLink"; title: string; label: string; href: string };
 
-/** How a project reads on the home page, with the name highlighted. */
+/** The words on a project's home page card. Its look lives with the component. */
 export type ProjectCard = {
-  before: string;
-  highlight: string;
-  after: string;
+  /** Short line above the blurb: what kind of thing this is, or who it was for. */
+  kicker: string;
+  blurb: string;
 };
 
 /** Per-variant overrides, for the fields that need to read differently. */
@@ -59,16 +61,29 @@ export type ProjectFraming = {
   description?: string;
 };
 
+export type ProjectHeroContent =
+  /** One full-width image. */
+  | {
+      kind: "banner";
+      image: StaticImageData;
+      alt: string;
+      /** Large title laid over the hero. Only two projects use one. */
+      overlayTitle?: string;
+    }
+  /** Real windows from a product, staged on that product's own background. */
+  | {
+      kind: "product";
+      main: GalleryImage;
+      /** Behind the main window, either side. Dropped once there is no room. */
+      left: GalleryImage;
+      right: GalleryImage;
+    };
+
 export type Project = {
   slug: ProjectSlug;
   title: string;
   description: string;
-  hero: {
-    image: StaticImageData;
-    alt: string;
-    /** Large title laid over the hero. Only two projects use one. */
-    overlayTitle?: string;
-  };
+  hero: ProjectHeroContent;
   /** Nudge for the rotated title, tuned per project to the text length. */
   titleOffset: { top: number; left: number };
   card: ProjectCard;
@@ -106,11 +121,17 @@ export type Variant = {
   title: string;
   description: string;
   intro: string[];
-  skills: string[][];
   resumeHref: string;
-  /** Work history, in reverse-chronological order for every variant. */
-  roles: VariantRole[];
-  /** Ordered subset, driving both the home list and the next-project chain. */
+  /**
+   * The résumé-style sections. Only the audience that wants them gets them, the
+   * others lead with the projects and link to the résumé PDF for the rest.
+   */
+  history?: {
+    /** Work history, in reverse-chronological order. */
+    roles: VariantRole[];
+    skills: string[][];
+  };
+  /** Ordered subset, driving both the home cards and the next-project chain. */
   projects: ProjectSlug[];
   /** Targeted variants are handed out directly, not discovered via search. */
   indexable: boolean;

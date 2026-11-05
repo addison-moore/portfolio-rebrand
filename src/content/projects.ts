@@ -6,17 +6,15 @@ import type {
   VariantId,
 } from "./types";
 
-import croniumHero from "@/assets/projects/cronium/cronium-hero.png";
-import cronium1 from "@/assets/projects/cronium/cronium-1.png";
-import cronium2 from "@/assets/projects/cronium/cronium-2.png";
-import cronium3 from "@/assets/projects/cronium/cronium-3.png";
-import cronium4 from "@/assets/projects/cronium/cronium-4.png";
+import croniumCanvas from "@/assets/projects/cronium/cronium-canvas.png";
+import croniumDashboard from "@/assets/projects/cronium/cronium-dashboard.png";
+import croniumEditor from "@/assets/projects/cronium/cronium-editor.png";
+import croniumRun from "@/assets/projects/cronium/cronium-run.png";
 
-import familyArchiveHero from "@/assets/projects/family-archive/family-archive-hero.png";
-import familyArchive1 from "@/assets/projects/family-archive/family-archive-1.png";
-import familyArchive2 from "@/assets/projects/family-archive/family-archive-2.png";
-import familyArchive3 from "@/assets/projects/family-archive/family-archive-3.png";
-import familyArchive4 from "@/assets/projects/family-archive/family-archive-4.png";
+import familyArchiveLetter from "@/assets/projects/family-archive/family-archive-letter.png";
+import familyArchiveMedia from "@/assets/projects/family-archive/family-archive-media.png";
+import familyArchiveProfile from "@/assets/projects/family-archive/family-archive-profile.png";
+import familyArchiveTree from "@/assets/projects/family-archive/family-archive-tree.png";
 
 import tradingHero from "@/assets/projects/trading-platforms/trading-platforms_hero.png";
 import northLaptop from "@/assets/projects/trading-platforms/38North_laptop.png";
@@ -46,6 +44,50 @@ import multicamRig0 from "@/assets/projects/multicam/MultiCam_0.jpg";
 import multicamRig1 from "@/assets/projects/multicam/MultiCam_1.jpg";
 
 // Ordered as the original markup had them: aya_5 leads, then 1–4, then 6–12.
+// Fictional data in the real apps. Cronium's jobs genuinely ran and FamilyArchive's
+// Hartwell family is the demo archive its own marketing site shows.
+const CRONIUM_CANVAS = {
+  image: croniumCanvas,
+  alt: "A Cronium workflow on the canvas, branching on success, failure and always",
+  crisp: true,
+};
+const CRONIUM_DASHBOARD = {
+  image: croniumDashboard,
+  alt: "The Cronium dashboard, with event, execution and server counts above recent activity",
+  crisp: true,
+};
+const CRONIUM_EDITOR = {
+  image: croniumEditor,
+  alt: "Editing a Python event's script in Cronium's code editor",
+  crisp: true,
+};
+const CRONIUM_RUN = {
+  image: croniumRun,
+  alt: "A Cronium workflow run, with each step's status, duration and the data it passed on",
+  crisp: true,
+};
+
+const FAMILY_ARCHIVE_TREE = {
+  image: familyArchiveTree,
+  alt: "The FamilyArchive family tree, with a person's details open beside it",
+  crisp: true,
+};
+const FAMILY_ARCHIVE_MEDIA = {
+  image: familyArchiveMedia,
+  alt: "The FamilyArchive media library: portraits, letters, certificates and postcards",
+  crisp: true,
+};
+const FAMILY_ARCHIVE_LETTER = {
+  image: familyArchiveLetter,
+  alt: "A scanned letter in FamilyArchive above the text read from it by OCR",
+  crisp: true,
+};
+const FAMILY_ARCHIVE_PROFILE = {
+  image: familyArchiveProfile,
+  alt: "A person's profile in FamilyArchive's dark theme, with the media they are tagged in",
+  crisp: true,
+};
+
 const AYA_SHOTS = [
   aya5,
   aya1,
@@ -68,23 +110,23 @@ export const projects: Project[] = [
     description:
       "A self-hosted automation platform that schedules scripts, chains them into workflows, and runs them on your own servers.",
     hero: {
-      image: croniumHero,
-      alt: "The Cronium website",
+      kind: "product",
+      main: CRONIUM_CANVAS,
+      left: CRONIUM_DASHBOARD,
+      right: CRONIUM_EDITOR,
     },
-    titleOffset: { top: 585, left: -146 },
+    titleOffset: { top: 875, left: -146 },
     card: {
-      before: "Built ",
-      highlight: "Cronium",
-      after:
-        ", a self-hosted automation platform for scheduling and monitoring scripts.",
+      kicker: "Open source · Self-hosted",
+      blurb:
+        "A self-hosted automation platform for scheduling and monitoring scripts.",
     },
     framing: {
       data: {
         card: {
-          before: "Built ",
-          highlight: "Cronium",
-          after:
-            ", a self-hosted platform for scheduling and monitoring recurring data jobs.",
+          kicker: "Open source · Self-hosted",
+          blurb:
+            "A self-hosted platform for scheduling and monitoring recurring data jobs.",
         },
       },
     },
@@ -111,10 +153,12 @@ export const projects: Project[] = [
         kind: "carousel",
         variant: "single",
         label: "Cronium screenshots",
-        images: [cronium1, cronium2, cronium3, cronium4].map((image) => ({
-          image,
-          alt: "Cronium Screenshot",
-        })),
+        images: [
+          CRONIUM_DASHBOARD,
+          CRONIUM_EDITOR,
+          CRONIUM_RUN,
+          CRONIUM_CANVAS,
+        ],
       },
       {
         kind: "prose",
@@ -139,22 +183,22 @@ export const projects: Project[] = [
     description:
       "A free, self-hosted home for a family's tree, photos, home movies and scanned letters — searchable and private by default.",
     hero: {
-      image: familyArchiveHero,
-      alt: "The FamilyArchive website",
+      kind: "product",
+      main: FAMILY_ARCHIVE_TREE,
+      left: FAMILY_ARCHIVE_MEDIA,
+      right: FAMILY_ARCHIVE_LETTER,
     },
-    titleOffset: { top: 585, left: -256 },
+    titleOffset: { top: 875, left: -256 },
     card: {
-      before: "Built ",
-      highlight: "FamilyArchive",
-      after: ", a private, self-hosted home for a family's photos and history.",
+      kicker: "Open source · Self-hosted",
+      blurb: "A private, self-hosted home for a family's photos and history.",
     },
     framing: {
       data: {
         card: {
-          before: "Built ",
-          highlight: "FamilyArchive",
-          after:
-            ", a self-hosted archive that imports, merges and searches structured family records.",
+          kicker: "Open source · Self-hosted",
+          blurb:
+            "A self-hosted archive that imports, merges and searches structured family records.",
         },
       },
     },
@@ -185,15 +229,16 @@ export const projects: Project[] = [
         variant: "single",
         label: "FamilyArchive screenshots",
         images: [
-          familyArchive1,
-          familyArchive2,
-          familyArchive3,
-          familyArchive4,
-        ].map((image) => ({ image, alt: "FamilyArchive Screenshot" })),
+          FAMILY_ARCHIVE_MEDIA,
+          FAMILY_ARCHIVE_LETTER,
+          FAMILY_ARCHIVE_PROFILE,
+          FAMILY_ARCHIVE_TREE,
+        ],
       },
       {
         kind: "prose",
-        title: "Collaboration",
+        // Short enough for the label column on a phone.
+        title: "Teams",
         paragraphs: [
           "Admins and editors change things directly while contributors submit suggestions for an editor to review, and an audit log records what changed. Face detection runs locally, originals are never modified, and media lives on local disk or any S3-compatible storage.",
         ],
@@ -214,16 +259,16 @@ export const projects: Project[] = [
     description:
       "Two proprietary trading platforms for automated crypto arbitrage and negative-risk alerting.",
     hero: {
+      kind: "banner",
       image: tradingHero,
       alt: "A candlestick trading chart",
       overlayTitle: "Trading Platforms",
     },
     titleOffset: { top: 700, left: -348 },
     card: {
-      before: "Designed and built ",
-      highlight: "trading platforms",
-      after:
-        " for automated arbitrage trading and negative risk notifications.",
+      kicker: "38North · Oracle Insights",
+      blurb:
+        "Designed and built for automated arbitrage trading and negative risk notifications.",
     },
     blocks: [
       {
@@ -277,15 +322,16 @@ export const projects: Project[] = [
     description:
       "Freelance web development: bespoke sites with custom content management, including photographer Aya Brackett's portfolio.",
     hero: {
+      kind: "banner",
       image: freelanceHero,
       alt: "The Aya Brackett website",
       overlayTitle: "Freelance",
     },
     titleOffset: { top: 580, left: -168 },
     card: {
-      before: "Worked as a ",
-      highlight: "freelance",
-      after: " web developer to build beautiful sites with custom CMS.",
+      kicker: "AyaBrackett.com",
+      blurb:
+        "Beautiful sites with custom CMS, built as a freelance web developer.",
     },
     blocks: [
       {
@@ -329,14 +375,14 @@ export const projects: Project[] = [
     description:
       "Product design, prototyping and manufacturing of the Multicam, a synchronised multi-camera rig built for The Bosco.",
     hero: {
+      kind: "banner",
       image: multicamHero,
       alt: "The Multicam rig",
     },
     titleOffset: { top: 585, left: -163 },
     card: {
-      before: "Designed, prototyped and built the ",
-      highlight: "Multicam",
-      after: " for The Bosco.",
+      kicker: "The Bosco",
+      blurb: "Designed, prototyped and built a synchronised multi-camera rig.",
     },
     blocks: [
       {

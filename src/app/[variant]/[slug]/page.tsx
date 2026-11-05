@@ -55,11 +55,7 @@ export default async function ProjectPage({
 
   return (
     <>
-      <ProjectHero
-        image={project.hero.image}
-        alt={project.hero.alt}
-        overlayTitle={project.hero.overlayTitle}
-      />
+      <ProjectHero slug={project.slug} hero={project.hero} />
       <PageTitle variant="project" offset={project.titleOffset}>
         {project.title}
       </PageTitle>

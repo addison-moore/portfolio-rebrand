@@ -273,18 +273,12 @@ test("the home page downloads no web fonts", async ({ page }) => {
   expect(fonts).toEqual([]);
 });
 
-test("pages do not scroll sideways on a phone", async ({ page }) => {
+test("no page scrolls sideways on a phone", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
 
-  // Not Trading Platforms yet: its hero title is too wide below about 440px.
-  for (const path of [
-    "/",
-    "/cronium",
-    "/family-archive",
-    "/freelance",
-    "/multicam",
-  ]) {
+  for (const path of ["/", ...PROJECTS.map(({ slug }) => `/${slug}`)]) {
     await page.goto(path);
+    await page.evaluate(() => document.fonts.ready);
     const overflow = await page.evaluate(
       () => document.documentElement.scrollWidth - window.innerWidth,
     );

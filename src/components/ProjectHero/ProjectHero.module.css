@@ -24,7 +24,9 @@
 
 @media only screen and (max-width: 1296px) {
   .overlayTitle {
-    font-size: 64px;
+    /* Past 64px it scales down, so its longest word still fits on a phone. */
+    font-size: min(64px, 13vw);
+    text-align: center;
   }
 }
 

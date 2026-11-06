@@ -20,19 +20,18 @@ import tradingHero from "@/assets/projects/trading-platforms/trading-platforms_h
 import northLaptop from "@/assets/projects/trading-platforms/38North_laptop.png";
 import oracleLaptop from "@/assets/projects/trading-platforms/oracle-insights_laptop.png";
 
+import ayaAdminArrange from "@/assets/projects/freelance/aya-admin-arrange.jpg";
+import ayaAdminGalleries from "@/assets/projects/freelance/aya-admin-galleries.jpg";
+import ayaAdminNews from "@/assets/projects/freelance/aya-admin-news.jpg";
+import ayaAdminPhoto from "@/assets/projects/freelance/aya-admin-photo.jpg";
+import ayaAdminPost from "@/assets/projects/freelance/aya-admin-post.jpg";
+import ayaGallery from "@/assets/projects/freelance/aya-gallery.jpg";
 import ayaGrid from "@/assets/projects/freelance/aya-grid.jpg";
-import aya1 from "@/assets/projects/freelance/aya_1.png";
-import aya2 from "@/assets/projects/freelance/aya_2.png";
-import aya3 from "@/assets/projects/freelance/aya_3.png";
-import aya4 from "@/assets/projects/freelance/aya_4.png";
-import aya5 from "@/assets/projects/freelance/aya_5.png";
-import aya6 from "@/assets/projects/freelance/aya_6.png";
-import aya7 from "@/assets/projects/freelance/aya_7.png";
-import aya8 from "@/assets/projects/freelance/aya_8.png";
-import aya9 from "@/assets/projects/freelance/aya_9.png";
-import aya10 from "@/assets/projects/freelance/aya_10.png";
-import aya11 from "@/assets/projects/freelance/aya_11.png";
-import aya12 from "@/assets/projects/freelance/aya_12.png";
+import ayaPhoneGallery from "@/assets/projects/freelance/aya-phone-gallery.jpg";
+import ayaPhoneStillLife from "@/assets/projects/freelance/aya-phone-still-life.jpg";
+import ayaSearch from "@/assets/projects/freelance/aya-search.jpg";
+import ayaSingle from "@/assets/projects/freelance/aya-single.jpg";
+import ayaStillLife from "@/assets/projects/freelance/aya-still-life.jpg";
 
 import multicamHero from "@/assets/projects/multicam/multicam.png";
 import multicam2 from "@/assets/projects/multicam/multicam2.gif";
@@ -43,7 +42,6 @@ import multicam5 from "@/assets/projects/multicam/multicam5.gif";
 import multicamRig0 from "@/assets/projects/multicam/MultiCam_0.jpg";
 import multicamRig1 from "@/assets/projects/multicam/MultiCam_1.jpg";
 
-// Ordered as the original markup had them: aya_5 leads, then 1–4, then 6–12.
 // Fictional data in the real apps. Cronium's jobs genuinely ran and FamilyArchive's
 // Hartwell family is the demo archive its own marketing site shows.
 const CRONIUM_CANVAS = {
@@ -88,19 +86,64 @@ const FAMILY_ARCHIVE_PROFILE = {
   crisp: true,
 };
 
+// The site first, then the admin behind it. The Portraits grid isn't first because
+// the hero already shows it.
 const AYA_SHOTS = [
-  aya5,
-  aya1,
-  aya2,
-  aya3,
-  aya4,
-  aya6,
-  aya7,
-  aya8,
-  aya9,
-  aya10,
-  aya11,
-  aya12,
+  {
+    image: ayaStillLife,
+    alt: "Aya Brackett's Still Life page, with each gallery named beneath its cover",
+    crisp: true,
+  },
+  {
+    image: ayaSingle,
+    alt: "A single portrait on Aya Brackett's site, with its caption and place in the gallery",
+    crisp: true,
+  },
+  {
+    image: ayaSearch,
+    alt: "Search results for flower on Aya Brackett's site",
+    crisp: true,
+  },
+  {
+    image: ayaGallery,
+    alt: "The Portraits gallery on Aya Brackett's site, a three-column photo grid",
+    crisp: true,
+  },
+  {
+    image: ayaPhoneGallery,
+    alt: "The Portraits gallery on a phone",
+    crisp: true,
+  },
+  {
+    image: ayaPhoneStillLife,
+    alt: "The Still Life galleries on a phone",
+    crisp: true,
+  },
+  {
+    image: ayaAdminArrange,
+    alt: "The admin showing galleries as visitors see them, ready to drag into a new order",
+    crisp: true,
+  },
+  {
+    image: ayaAdminGalleries,
+    alt: "The admin's list of galleries, with controls for thumbnails, photos and deleting",
+    crisp: true,
+  },
+  {
+    image: ayaAdminPhoto,
+    alt: "Editing a photo's caption, order and search tags in the admin",
+    crisp: true,
+  },
+  {
+    image: ayaAdminNews,
+    alt: "The admin's news page, with a published post and its edit controls",
+    crisp: true,
+  },
+  {
+    image: ayaAdminPost,
+    alt: "Editing a news post in the admin's rich text editor",
+    crisp: true,
+  },
 ];
 
 export const projects: Project[] = [
@@ -353,10 +396,7 @@ export const projects: Project[] = [
         kind: "carousel",
         variant: "single",
         label: "AyaBrackett.com screenshots",
-        images: AYA_SHOTS.map((image) => ({
-          image,
-          alt: "AyaBrackett.com Screenshot",
-        })),
+        images: AYA_SHOTS,
       },
       {
         kind: "stack",
